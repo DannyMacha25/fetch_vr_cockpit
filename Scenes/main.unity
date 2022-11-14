@@ -3354,6 +3354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 382672405}
   - component: {fileID: 382672406}
+  - component: {fileID: 382672407}
   m_Layer: 0
   m_Name: Arm Controls Container
   m_TagString: Untagged
@@ -3392,8 +3393,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rosmaster: {fileID: 524260817}
-  topic: /gripper_goal
+  joint_topic: /joint_commands
+  pose_topic: /gripper_goal
   mapFrameId: /map
+  degrees:
+  - 20
+  - -65
+  - 180
+  - -60
+  - 0
+  - -90
+  - 0
+--- !u!114 &382672407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 382672404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955ca029b4dfa53429f82fd815d3f4a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rosmaster: {fileID: 0}
+  upperFrameId: /map
+  storageTime: 10
+  link: /map
+  child: /gripper_link
+  seconds: 0
+  getReverse: 0
+  usingGazebo: 0
 --- !u!1 &418671645
 GameObject:
   m_ObjectHideFlags: 0
