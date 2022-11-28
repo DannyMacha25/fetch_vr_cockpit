@@ -6,6 +6,7 @@ using Messages;
 using Ros_CSharp;
 using UnityEngine.UI;
 
+
 public class Body_Panel_Actions : MonoBehaviour {
 	[Header("Ros")]
 	public ROSCore rosmaster;
@@ -13,6 +14,12 @@ public class Body_Panel_Actions : MonoBehaviour {
 	[Header("Movement Values")]
 	public double speed;
 	private NodeHandle nh;
+	[Header("Misc")]
+	public GameObject controller;
+	public Text touchPadButtonText;
+
+	private bool useTouchpadInput = false;
+	private double xInputLiniency = .8, yInputLiniency = .8;
 
 	private Publisher<Twist> pub;
 	enum BUTTON_STATE
@@ -33,6 +40,7 @@ public class Body_Panel_Actions : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+	
 		Twist goal;
         switch (current_state)
         {
@@ -56,6 +64,38 @@ public class Body_Panel_Actions : MonoBehaviour {
 				goal = CreateTwistMsg(x: 5);
 				pub.publish(goal);
 				break;
+        }
+
+		//Touchpad Input
+		Vector2 touchPadAxis = controller.GetComponent<VRTK.VRTK_ControllerEvents>().GetTouchpadAxis();
+
+		if (useTouchpadInput)
+        {
+			if(touchPadAxis.x >= xInputLiniency)
+            {
+				Debug.Log("Turn Right");
+				goal = CreateTwistMsg(rZ: -2);
+				pub.publish(goal);
+
+			}
+			else if(touchPadAxis.x <= -xInputLiniency)
+            {
+				Debug.Log("Turn Left");
+				goal = CreateTwistMsg(rZ: 2);
+				pub.publish(goal);
+			}
+			else if(touchPadAxis.y >= yInputLiniency)
+            {
+				Debug.Log("Move Forward");
+				goal = CreateTwistMsg(x: 2);
+				pub.publish(goal);
+			}
+			else if(touchPadAxis.y <= -yInputLiniency)
+            {
+				Debug.Log("Move Backward");
+				goal = CreateTwistMsg(x: -2);
+				pub.publish(goal);
+			}
         }
 	}
 
@@ -84,14 +124,12 @@ public class Body_Panel_Actions : MonoBehaviour {
 
 	public void buttonReleased()
 	{
-		//current_state = BUTTON_STATE.none;
-		Debug.Log("S");
+		current_state = BUTTON_STATE.none;
 	}
 
 	public void rotateRightPressed()
 	{
 		current_state = BUTTON_STATE.right;
-		Debug.Log("B");
 	}
 
 	public void moveForwardPressed()
@@ -102,5 +140,20 @@ public class Body_Panel_Actions : MonoBehaviour {
 	public void moveBackwardPressed()
     {
 		current_state = BUTTON_STATE.back;
+    }
+
+	public void toggleTouchpadInput()
+    {
+		useTouchpadInput = !useTouchpadInput;
+		if (useTouchpadInput)
+		{
+			touchPadButtonText.text = "Turn Off";
+			Debug.Log("[Body Panel Actions]: Touchpad input turned on!");
+		}
+        else
+        {
+			touchPadButtonText.text = "Turn On";
+			Debug.Log("[Body Panel Actions]: Touchpad input turned off!");
+		}
     }
 }
