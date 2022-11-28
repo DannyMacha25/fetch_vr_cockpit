@@ -84,14 +84,14 @@ public class Body_Panel_Actions : MonoBehaviour {
 
 	public void buttonReleased()
 	{
-		current_state = BUTTON_STATE.none;
-
+		//current_state = BUTTON_STATE.none;
+		Debug.Log("S");
 	}
 
 	public void rotateRightPressed()
 	{
 		current_state = BUTTON_STATE.right;
-
+		Debug.Log("B");
 	}
 
 	public void moveForwardPressed()

@@ -9,9 +9,13 @@ using UnityEngine.UI;
 
 public class CameraPanelActions : MonoBehaviour {
 	//Uses heat_tilt_joint and head_pan_joint
-
+	[Header("Ros")]
 	public ROSCore rosmaster;
+	[Header("Game Objects")]
 	public Button[] movementButtons;
+	public GameObject tiltLabel;
+	public GameObject panLabel;
+	[Header("Values")]
 	public string topic;
 	//public double degrees;
 	public double panChangeInDegrees;
@@ -35,6 +39,7 @@ public class CameraPanelActions : MonoBehaviour {
 
 	void Update()
     {
+		updateLabels();
         if (canEnable)
         {
 			enableButtons();
@@ -142,7 +147,7 @@ public class CameraPanelActions : MonoBehaviour {
     {
 		JointState goal = makeHeadGoal(currRotationDeg - panChangeInDegrees, currTiltRotationDeg);
 		//Definitely should wait for goal succeed before changing the current rotation
-		double[] arr = { currRotationDeg - panChangeInDegrees, tiltChangeInDegrees };
+		double[] arr = { currRotationDeg - panChangeInDegrees, currTiltRotationDeg };
 		q.Enqueue(arr); //Enqueues the new angle for the new joint
 
 		disableButtons();
@@ -182,4 +187,49 @@ public class CameraPanelActions : MonoBehaviour {
 		double[] arr = { 0,0 };
 		q.Enqueue(arr); //Enqueues the new angle for the new joint
 	}
+
+	public void incrementPan()
+    {
+		panChangeInDegrees += .5;
+		if(panChangeInDegrees > 15)
+        {
+			panChangeInDegrees = 15;
+        }
+    }
+
+	public void decrementPan()
+	{
+		panChangeInDegrees -= .5;
+		if (panChangeInDegrees < 0)
+		{
+			panChangeInDegrees = 0;
+		}
+	}
+
+	public void incrementTilt()
+    {
+		tiltChangeInDegrees += .5;
+		if(tiltChangeInDegrees > 20)
+        {
+			tiltChangeInDegrees = 20;
+		}
+
+    }
+
+	public void decrementTilt()
+	{
+		tiltChangeInDegrees -= .5;
+		if (tiltChangeInDegrees < 0)
+		{
+			tiltChangeInDegrees = 0;
+		}
+	}
+
+	private void updateLabels()
+    {
+		string tiltStr = tiltChangeInDegrees.ToString("0.#");
+		string panStr = panChangeInDegrees.ToString("0.#");
+		tiltLabel.GetComponent<Text>().text = tiltStr;
+		panLabel.GetComponent<Text>().text = panStr;
+    }
 }
