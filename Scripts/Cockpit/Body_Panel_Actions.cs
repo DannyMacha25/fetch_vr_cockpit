@@ -49,6 +49,7 @@ public class Body_Panel_Actions : MonoBehaviour {
 				current_state = BUTTON_STATE.none;
 			}
 		}
+
 		Twist goal;
         switch (current_state)
         {
@@ -104,6 +105,11 @@ public class Body_Panel_Actions : MonoBehaviour {
 				goal = CreateTwistMsg(x: -2);
 				pub.publish(goal);
 			}
+            else
+            {
+				goal = CreateTwistMsg();
+				pub.publish(goal);
+            }
         }
 	}
 
