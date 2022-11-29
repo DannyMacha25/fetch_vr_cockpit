@@ -20,6 +20,9 @@ public class CameraPanelActions : MonoBehaviour {
 	//public double degrees;
 	public double panChangeInDegrees;
 	public double tiltChangeInDegrees;
+	/*[Header("Misc")]
+	public GameObject controller;
+	public Text touchPadButtonText;*/
 
 	private double currRotationDeg;
 	private double currTiltRotationDeg;
