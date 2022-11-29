@@ -40,28 +40,36 @@ public class Body_Panel_Actions : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+		if(current_state != BUTTON_STATE.none)
+        {
+			if (!controller.GetComponent<VRTK.VRTK_ControllerEvents>().triggerPressed)
+			{
+				Debug.Log("Released");
+				current_state = BUTTON_STATE.none;
+			}
+		}
 		Twist goal;
         switch (current_state)
         {
 			
 			case BUTTON_STATE.left:
-				goal = CreateTwistMsg(rZ: 5);
+				goal = CreateTwistMsg(rZ: 2);
 				pub.publish(goal);
 				break;
 
 			case BUTTON_STATE.right:
-				goal = CreateTwistMsg(rZ: -5);
+				goal = CreateTwistMsg(rZ: -2);
 				pub.publish(goal);
 				break;
 
 			case BUTTON_STATE.back:
-				goal = CreateTwistMsg(x: -5);
+				goal = CreateTwistMsg(x: -2);
 				pub.publish(goal);
 				break;
 
 			case BUTTON_STATE.forward:
-				goal = CreateTwistMsg(x: 5);
+				goal = CreateTwistMsg(x: 2);
 				pub.publish(goal);
 				break;
         }
@@ -124,12 +132,18 @@ public class Body_Panel_Actions : MonoBehaviour {
 
 	public void buttonReleased()
 	{
-		current_state = BUTTON_STATE.none;
+		//current_state = BUTTON_STATE.none;
+        if (!controller.GetComponent<VRTK.VRTK_ControllerEvents>().triggerPressed)
+        {
+			Debug.Log("Released");
+		}
+		
 	}
 
 	public void rotateRightPressed()
 	{
 		current_state = BUTTON_STATE.right;
+		Debug.Log("Pressed");
 	}
 
 	public void moveForwardPressed()
