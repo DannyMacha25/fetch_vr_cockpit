@@ -19,6 +19,7 @@ with controls for the robot. The **camera control** panel contains a dpad, a res
 sections labeled *Pan* and *Tilt*. The up and down arrow on the dpad tilt the robot's head up and down. The 
 left and right on the dpad pan the head in the respective direction. The change in degrees each press of a 
 button makes is represented by the adjustment sections. Higher or lower these to your liking.
+
 **IMPORTANT NOTE:** The reset button sets the robots camera to a neutral \0 degree tilt and 0\ degree pan.
 The cockpit keeps track of the current angles of the robot's head, but when starting up the cockpit
 it assumes the robot's head is already at its neutral position. So upon each start of the cockpit **please**
