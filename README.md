@@ -15,7 +15,9 @@ The cockpit is split up into several panels, each with their own group of functi
 connected to the robot, is a panel that shows the head camera view of the fetch robot. 
 
 To control the robot, there are 3 (as of writing this, also the right red panel is unused) panels
-with controls for the robot. The **camera control** panel contains a dpad, a reset button, and 2 adjustment
+with controls for the robot. 
+
+The **camera control** panel contains a dpad, a reset button, and 2 adjustment
 sections labeled *Pan* and *Tilt*. The up and down arrow on the dpad tilt the robot's head up and down. The 
 left and right on the dpad pan the head in the respective direction. The change in degrees each press of a 
 button makes is represented by the adjustment sections. Higher or lower these to your liking.
@@ -24,5 +26,15 @@ button makes is represented by the adjustment sections. Higher or lower these to
 The cockpit keeps track of the current angles of the robot's head, but when starting up the cockpit
 it assumes the robot's head is already at its neutral position. So upon each start of the cockpit **please**
 **reset the head.**
+
+The **body control** panel contains a dpad and a *Joystick Input* toggle. The left and right on the dpad
+turn the body of the robot in the respective direction. The up and down on the dpad move the robot forward and backwards.
+*Joystick Input* toggle will toggle joystick input of the right joystick. Use the same directions as the dpad to move
+the robot.
+
+The **left** panel is used for manipulation. The *claw* button puts the robot in claw machine mode and you can use the
+dpad to move the gripper like one would a claw machine. Dpad is for directional input and the two inner directional buttons
+are for height adjustment.
+**TODO:** A stow button needs to be implemented. The reset button needs to be fully implemented.
 
 ## TODO: Setup
