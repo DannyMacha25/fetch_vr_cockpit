@@ -104,6 +104,18 @@ public class ManipulationController : MonoBehaviour {
 		return msg;
     }
 
+	private JointState CreateJointStateMsg(string joint, double val)
+	{
+		JointState msg = new JointState();
+		msg.name = new string[1];
+		msg.position = new double[1];
+
+		msg.name[0] = joint;
+		msg.position[0] = val;
+
+		return msg;
+	}
+
 	private JointState CreateArmJointStateMsg(double[] values)
     {
 		string[] joints = { "shoulder_pan_joint", "shoulder_lift_joint", "upperarm_roll_joint", "elbow_flex_joint", "forearm_roll_joint", "wrist_flex_joint", "wrist_roll_joint" };
@@ -180,7 +192,11 @@ public class ManipulationController : MonoBehaviour {
 
 	public void ResetArm()
     {
-		//publishGoal(1.245,.897,1.160);
+		double[] vals = {92, 90, 0, 86.4, -7.1, 105, 0 };
+		StartCoroutine(pubJoints(vals));
+		//Debug.Log(radian_vals);
+		//pub.publish(CreateJointStateMsg(radian_vals));
+
 	}
 
 	public void publishGoal(double x=0,double y=0, double z=0)
@@ -206,4 +222,19 @@ public class ManipulationController : MonoBehaviour {
 
 
 	}
+
+	IEnumerator pubJoints(double[] vals)
+    {
+		double[] radian_vals = new double[7];
+		yield return new WaitForSeconds(2);
+		radian_vals = degreeToRadians(degrees);
+		string[] joints = { "shoulder_pan_joint", "shoulder_lift_joint", "upperarm_roll_joint", "elbow_flex_joint", "forearm_roll_joint", "wrist_flex_joint", "wrist_roll_joint" };
+		for (int i = 0; i < 7; i++)
+		{
+			Debug.Log("Pubbing " + joints[i]);
+			pub.publish(CreateJointStateMsg(joints[i], radian_vals[i]));
+			yield return new WaitForSeconds(2);
+		}
+	}
+		
 }

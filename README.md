@@ -38,3 +38,20 @@ are for height adjustment.
 **TODO:** A stow button needs to be implemented. The reset button needs to be fully implemented.
 
 ## TODO: Setup
+Req: A linux environment, a unity environment.
+
+1) Install Unity :3
+2) Follow the Unity environment setup [here](https://github.com/uml-robotics/valkyrieVR)
+3) Clone this repository in your assets folder
+4) Follow the get started section [here](https://github.com/uml-robotics/fetchit)
+5) Clone [this](https://github.com/uml-robotics/fetch_vr_backend) backend in your catkin src directory, then compile.
+
+Once you have everything installed, to start everthing...
+
+On the linux side
+1) Launch roscore
+2) `$ roslaunch fetchit_challenge (any arena you want)` This will launch gazebo 
+3) `$ roscd fetch_vr_backend` then `$ make tmux`this provides a backend to parse moveit commands from unity.
+
+On the unity side
+1) In the ros
