@@ -2593,12 +2593,12 @@ MonoBehaviour:
   pose_topic: /gripper_goal
   mapFrameId: /map
   degrees:
-  - 20
-  - -65
-  - 180
-  - -60
-  - 0
-  - -90
+  - 92
+  - 90
+  - 148.96
+  - 86.4
+  - -7.1
+  - 74.48
   - 0
 --- !u!1 &249860770
 GameObject:
